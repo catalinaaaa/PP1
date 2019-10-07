@@ -3,14 +3,10 @@ USE pp1;
 
 create table estudiantePracticante(
 carne int not null,
-usuario varchar(20) not null,
-contrasenna varchar(20) not null,
 pimerNombre varchar(30) not null,
 segundoNombre varchar(30) not null,
 primerApellido varchar(30) not null,
 segundoApellido varchar(30) not null,
-fechaNacimiento date not null,
-cedula varchar(9) not null,
 correoElectronico varchar(30) not null,
 telefono varchar(11) not null,
 idProvincia int not null,
@@ -20,61 +16,54 @@ sennas varchar(30) not null
 )
 
 create table profesor(
+carne int primary key not null,
 usuario varchar(15) not null,
 contrasenna varchar(15) not null,
-cedula varchar(9) not null,
 primerNombre varchar(30) not null,
 segundoNombre varchar(30) not null,
 primerApellido varchar(30) not null,
 segundoApellido varchar(30) not null,
-fechaNacimiento date not null, 
 telefono varchar(11) not null,
-correoElectronico varchar(30) not null,
-idProvincia int not null,
-canton varchar(20) not null,
-distrito varchar(20) not null,
-sennas varchar(45) not null,
+correoElectronico varchar(30) not null
 )
 
-create table entrega(
-idEntrega int not null,
-fechaEntrega date not null,
+create table entregable(
+idEntregable int not null,
+fechaEntregado date not null,
 idTipo int not null,
 porcentaje int not null,
 cedulaProfesor int not null
 )
 
 create table practica(
-idPractica int not null,
-idRepresentante int not null,
-idEstudiante int not null,
-idProfesorCurso int not null,
-idEmpresa int not null, 
-idEncargadoPracticas int not null,
-idProfesorAsesor int not null,
-anno int not null,
-numeroSemestre int not null
+idPractica int primary key not null,
+carneEstudiante int not null,
+idPeriodoPractica int not null,
+profesorAsesor int not null,
+profesorCurso int not null,
+representanteEmpresa int not null
 )
 
 create table empresa(
-cedulaJuridica int not null,
+cedulaJuridica int primary key not null,
 nombreEmpresa varchar(30) not null,
 telefono int not null,
 idProvincia int not null,
 idCanton int not null,
 idDistrito int not null,
-sennas varchar (30) not null
+sennas varchar(30) not null
 )
 
 create table representanteEmpresa(
-cedula int not null,
+cedula int primary key not null,
 primerNombre varchar(30) not null,
 segundoNombre varchar(30) not null,
 primerApellido varchar(30) not null,
 segundoApellido varchar(30) not null,
 puesto varchar (30) not null,
 correoElectronico varchar(30) not null,
-telefono int not null
+telefono int not null,
+empresa int not null
 )
 
 create table trabajoFinal(
@@ -83,50 +72,59 @@ nota int not null,
 profesorEP int not null
 )
 
-create table reunion(
-idReunion int not null,
-correoEstudiante varchar(30) not null,
-idEstudiante int not null,
-correoProfAsignado varchar(30) not null,
-lugar varchar(30) not null,
-tema varchar(20) not null
+create table periodoPractica(
+idPeriodo int primary key not null,
+numeroSemestre int not null,
+anno int not null,
+estudiantePracticante int not null,
+encargadoPractica int not null
 )
 
-create table minutas(
-idReunion int not null,
-idMinuta int not null,
-idEstudiante int not null,
-titulo varchar(20) not null,
-fotografia image, 
-horaInicio date not null,
-horaFinal date not null,
+create table reunion(
+idReunion int primary key not null,
+carneEstudiante int not null,
+profesorAsesor int not null,
+lugar varchar(30) not null,
+tema varchar(20) not null,
+fecha date not null,
 agenda varchar(30) not null
 )
 
+create table minutas(
+idMinuta int not null,
+idReunion int not null,
+lugar varchar(30) not null,
+idEstudiante int not null,
+titulo varchar(20) not null,
+fotografia image, 
+horaInicio smalldatetime not null,
+horaFinal smalldatetime not null
+)
+
 create table nota(
-idEntrega int not null,
+idEntregable int primary key not null,
 notaProfAsesor int not null,
 notaSupervisor int not null,
-fecha date not null,
+fechaRegistro30 date not null,
 comentario varchar(30) not null
 )
 
 create table provincia(
-idProvincia int not null,
+idProvincia int primary key not null,
 nombreProvincia int not null
 )
 
 create table distrito(
-idDistrito int not null,
+idDistrito int primary key not null,
 nombreDistrito int not null
 )
 
 create table canton(
-idCanton int not null,
+idCanton int primary key not null,
 nombreCanton int not null
 )
 
-create table tipoEntrega(
-idTipo int not null, 
+create table tipoEntregable(
+idTipoEntregable int primary key not null, 
 detalleTipo varchar(20) not null
 )

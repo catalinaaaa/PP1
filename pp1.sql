@@ -128,3 +128,29 @@ create table tipoEntregable(
 idTipoEntregable int primary key not null, 
 detalleTipo varchar(20) not null
 )
+
+--llaves primarias 
+alter table minutas add constraint minutasPK primary key (idReunion);
+
+--llaves foráneas
+alter table representanteEmpresa add constraint representanteEmpresaFK foreign key (empresa) references representanteEmpresa(empresa);
+alter table nota add constraint notaFK foreign key (idEntregable) references nota(idEntregable);
+alter table entregable add constraint entregableFK foreign key (idEntregable) references entregable(idTipo);
+alter table entregable add constraint entregableFK foreign key (carneEstudiante) references entregable(carneEstudiante);
+alter table reunion add constraint reunionPK foreign key (carneEstudiante) references reuinion(carneEstudiante);
+alter table reunion add constraint reunionFK foreign key (carneEstudiante) references reunion(carneEstudiante);
+alter table estudiantePracticante add constraint estudiantePracticanteFK foreign key (idProvincia) references estudiantePracticante(idProvincia);
+alter table estudiantePracticante add constraint estudiantePracticanteFK foreign key (idCanton) references estudiantePracticante(idCanton);
+alter table estudiantePracticante add constraint estudiantePracticanteFK foreign key (idDistrito) references estudiantePracticante(idDistrito);
+alter table minutas add constraint minutasFK foreign key (idReunion) references minutas(idReunion);
+alter table minutas add constraint minutasFK foreign key (carneEstudiante) references minutas(carneEstudiante);
+alter table periodoPractica add constraint periodoPracticaFK foreign key (estudiantePracticante) references periodoPractica(estudiantePracticante);
+alter table periodoPractica add constraint periodoPracticaFK foreign key (encargadoPractica) references periodoPractica(encargadoPractica);
+alter table empresa add constraint empresaFK foreign key (idProvincia) references empresa(idProvincia);
+alter table empresa add constraint empresaFK foreign key (idCanton) references empresa(idCanton);
+alter table empresa add constraint empresaFK foreign key (idDistrito) references empresa(idDistrito);
+alter table practica add constraint practicaFK foreign key (carneEstudiante) references practica(carneEstudiante);
+alter table practica add constraint practicaFK foreign key (idPeriodoPractica) references practica(idPeriodoPractica);
+alter table practica add constraint practicaFK foreign key (profesorAsesor) references practica(profesorAsesor);
+alter table practica add constraint practicaFK foreign key (profesorCurso) references practica(profesorCurso);
+alter table practica add constraint practicaFK foreign key (representanteEmpresa) references practica(representanteEmpresa);

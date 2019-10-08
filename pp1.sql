@@ -129,8 +129,20 @@ idTipoEntregable int primary key not null,
 detalleTipo varchar(20) not null
 )
 
+create table rolProfesor(
+idRol int not null,
+idProfesor int not null
+)
+
+create table rol(
+idRol int primary key not null,
+nombreRol varchar(20) not null
+)
+
 --llaves primarias 
 alter table minutas add constraint minutasPK primary key (idReunion);
+alter table rolProfesor add constraint rolProfesorPK primary key (idRol);
+alter table rolProfesor add constraint rolProfesorPK primary key (idProfesor);
 
 --llaves foráneas
 alter table representanteEmpresa add constraint representanteEmpresaFK foreign key (empresa) references representanteEmpresa(empresa);
